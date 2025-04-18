@@ -1,0 +1,500 @@
+<!DOCTYPE html><html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pendaftaran - SMK Farmasi Majenang</title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+<!-- Menambahkan favicon -->
+  <link rel="shortcut icon" href="./asset/favicon.png" type="image/x-icon">
+  <link rel="icon" href="favicon.png" type="image/x-icon">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <style>
+    html, body { height: 100%; overflow: hidden; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-thumb { background-color: #3b82f6; border-radius: 10px; }
+      .fade-in {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.8s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  #loader {
+    transition: opacity 0.5s ease;
+  }
+  #waCard.hide {
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+  }
+  img {
+  pointer-events: none;
+  user-select: none;
+}
+.flatpickr-calendar {
+    box-shadow: none !important;
+    border: none !important;
+    width: 100% !important;
+  }
+
+  .flatpickr-innerContainer {
+    padding: 0 !important;
+  }
+
+  .flatpickr-day {
+    margin: 1px;
+    font-size: 12px;
+  }
+
+  .flatpickr-day.today {
+    font-weight: bold;
+  }
+  </style>
+
+
+</head>
+<body class="bg-blue-50 flex flex-col min-h-screen scroll-smooth">
+  
+  <!-- Loader -->
+<div id="loader" class="fixed inset-0 z-[9999] bg-white flex items-center justify-center">
+  <div class="flex flex-col items-center">
+    <div class="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+    <p class="mt-4 text-blue-800 font-semibold text-sm animate-pulse">Memuat Halaman...</p>
+  </div>
+</div>
+
+<!-- Script untuk hilangkan loader saat halaman sudah siap -->
+<script>
+  window.addEventListener("load", () => {
+    const loader = document.getElementById("loader");
+    setTimeout(() => {
+      loader.classList.add("opacity-0");
+      loader.classList.add("pointer-events-none");
+    }, 500); // Efek fade-out
+  });
+</script>
+  
+  
+  
+  <!-- Navbar Mobile -->
+  <header class="md:hidden flex items-center justify-between bg-blue-800 text-white p-4 fixed top-0 left-0 w-full z-30 shadow-md">
+    <div class="flex items-center space-x-2">
+  <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow">
+  <img src="./asset/logo.png" alt="Logo" class="w-6 h-6 object-contain" />
+</div>
+  <h1 class="text-xl font-bold">SMK Farmasi Majenang</h1>
+</div>
+    <button id="menuToggle" class="text-white focus:outline-none">
+      <i class="fas fa-bars text-2xl"></i>
+    </button>
+  </header>
+  <div class="flex flex-1">
+    <!-- Sidebar -->
+    <aside id="sidebar" class="fixed md:sticky top-0 left-0 w-64 bg-blue-800 text-white p-4 z-50 h-screen md:h-auto md:self-start transform -translate-x-full md:translate-x-0 md:top-0 transition-transform duration-300 ease-in-out min-h-screen">
+      <div class="flex items-center justify-between md:block mb-4">
+        <div class="flex items-center space-x-3 mb-4">
+<div class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow">
+  <img src="./asset/logo.png" alt="Logo" class="w-6 h-6 object-contain" />
+</div>
+  <div class="text-offcanvas">
+  <h2 class="text-2xl font-bold">SMK Farmasi</h2>
+  <p class="text-sm">Majenang</p>
+</div>
+</div>
+        <button id="closeSidebar" class="md:hidden text-white text-2xl">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <nav class="flex flex-col space-y-4">
+        <a href="index.html" class="hover:bg-blue-500 px-4 py-2 rounded flex items-center"><i class="fas fa-home mr-2"></i> Dashboard</a>
+        <a href="profil.html" class="hover:bg-blue-500 px-4 py-2 rounded flex items-center"><i class="fas fa-school mr-2"></i> Profil Sekolah</a>
+        <a href="jurusan.html" class="hover:bg-blue-500 px-4 py-2 rounded flex items-center"><i class="fas fa-vials mr-2"></i> Program Keahlian</a>
+        <a href="ekskul.html" class="hover:bg-blue-500 px-4 py-2 rounded flex items-center"><i class="fas fa-users mr-2"></i> Ekstrakurikuler</a>
+        <a href="pendaftaran.html" class="bg-blue-500 px-4 py-2 rounded flex items-center"><i class="fas fa-file-alt mr-2"></i> Pendaftaran</a>
+      </nav>
+      
+      <div class="md:hidden mt-6">
+  <a href="formulir.html"
+     class="block md:hidden w-full text-center bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-500">
+    <i class="fas fa-edit mr-2 inline-block"></i> Daftar Sekarang
+  </a>
+</div>
+      
+    </aside>
+    
+    
+    <!-- Main -->
+<main class="flex-1 p-6 w-full overflow-y-auto h-screen pt-20 md:pt-6">
+  
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-3xl font-semibold text-blue-800">Pendaftaran</h1>
+    <!-- Tombol Daftar Sekarang -->
+    <a href="formulir.html" class="flex items-center space-x-2 bg-blue-800 text-white px-4 py-2 rounded hover:bg-blue-700 transition hidden md:flex">
+  <i class="fas fa-edit"></i>
+  <span class="hidden md:inline">Daftar Sekarang</span>
+</a>
+  </div>
+  
+  <section id="pendaftaran" class="py-2">
+  <div class="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-6">
+    
+    <!-- KONTEN UTAMA -->
+    <div class="md:col-span-3 space-y-8">
+      <!-- Biaya Pendidikan -->
+<div>
+  <h3 class="text-lg font-semibold text-blue-700 mb-4">Biaya Daftar Ulang per Jurusan (2025/2026)</h3>
+  <div class="overflow-x-auto text-sm">
+    <table class="w-full border text-left">
+      <thead class="bg-blue-100 text-blue-800">
+        <tr>
+          <th class="p-2">Uraian</th>
+          <th class="p-2">Farmasi</th>
+          <th class="p-2">APL</th>
+          <th class="p-2">RPL</th>
+          <th class="p-2">Keterangan</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border-t">
+          <td class="p-2">Kaos Olahraga 1 Stel</td>
+          <td class="p-2">Rp 150.000</td>
+          <td class="p-2">Rp 150.000</td>
+          <td class="p-2">Rp 150.000</td>
+          <td class="p-2">Sekali</td>
+        </tr>
+        <tr class="border-t">
+          <td class="p-2">Seragam Almet + Atribut + Jas Praktik</td>
+          <td class="p-2">Rp 400.000</td>
+          <td class="p-2">Rp 400.000</td>
+          <td class="p-2">Rp 400.000</td>
+          <td class="p-2">Sekali</td>
+        </tr>
+        <tr class="border-t">
+          <td class="p-2">MOS PTA</td>
+          <td class="p-2">Rp 125.000</td>
+          <td class="p-2">Rp 125.000</td>
+          <td class="p-2">Rp 125.000</td>
+          <td class="p-2">Sekali</td>
+        </tr>
+        <tr class="border-t">
+          <td class="p-2">Cek Kesehatan</td>
+          <td class="p-2">Rp 25.000</td>
+          <td class="p-2">Rp 25.000</td>
+          <td class="p-2">Rp 25.000</td>
+          <td class="p-2">Sekali</td>
+        </tr>
+        <tr class="border-t">
+          <td class="p-2">SPP</td>
+          <td class="p-2">Rp 150.000</td>
+          <td class="p-2">Rp 140.000</td>
+          <td class="p-2">Rp 140.000</td>
+          <td class="p-2">Perbulan</td>
+        </tr>
+        <tr class="border-t">
+          <td class="p-2">Praktikum</td>
+          <td class="p-2">Rp 500.000</td>
+          <td class="p-2">Rp 500.000</td>
+          <td class="p-2">Rp 400.000</td>
+          <td class="p-2">Per Semester</td>
+        </tr>
+        <tr class="border-t">
+          <td class="p-2">Pengembangan Perpustakaan</td>
+          <td class="p-2">Rp 125.000</td>
+          <td class="p-2">Rp 125.000</td>
+          <td class="p-2">Rp 125.000</td>
+          <td class="p-2">Pertahun</td>
+        </tr>
+        <tr class="border-t font-semibold bg-blue-50">
+          <td class="p-2">Total</td>
+          <td class="p-2">Rp 1.475.000</td>
+          <td class="p-2">Rp 1.465.000</td>
+          <td class="p-2">Rp 1.365.000</td>
+          <td class="p-2"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+      
+      
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="space-y-6">
+      
+      <!-- Kalender Interaktif PPDB -->
+      
+<div class="bg-white shadow-md rounded-xl p-6 w-full">
+  <h2 class="text-blue-700 font-semibold text-md mb-2">Kalender Pendaftaran</h2>
+  <div class="flex items-center justify-between mb-2">
+    <button id="prevMonth" class="text-gray-600 hover:text-gray-800 text-xl">&#8592;</button>
+    <h3 id="calendarTitle" class="text-sm font-semibold text-gray-700"></h3>
+    <button id="nextMonth" class="text-gray-600 hover:text-gray-800 text-xl">&#8594;</button>
+  </div>
+  <div class="grid grid-cols-7 text-xs text-gray-600 font-medium text-center mb-1">
+    <div>Min</div><div>Sen</div><div>Sel</div><div>Rab</div><div>Kam</div><div>Jum</div><div>Sab</div>
+  </div>
+  <div id="calendarGrid" class="space-y-1 mt-2"></div>
+  <div class="border-t mt-4 pt-2 text-xs text-gray-600">
+    <p><span class="font-semibold">Awal Pendaftaran:</span> 1 April 2025</p>
+    <p><span class="font-semibold">Penutupan:</span> 30 Juni 2025</p>
+    <p><span class="font-semibold">Wawancara:</span> Juli 2025</p>
+  </div>
+</div>
+
+<script>
+  const calendarGrid = document.getElementById('calendarGrid');
+  const calendarTitle = document.getElementById('calendarTitle');
+  const prevMonthBtn = document.getElementById('prevMonth');
+  const nextMonthBtn = document.getElementById('nextMonth');
+
+  let currentDate = new Date();
+
+  function generateCalendar(date) {
+    calendarGrid.innerHTML = '';
+    const year = date.getFullYear();
+    const month = date.getMonth();
+
+    const firstDay = new Date(year, month, 1);
+    const lastDate = new Date(year, month + 1, 0).getDate();
+    const startDay = (firstDay.getDay() + 6) % 7;
+
+    calendarTitle.textContent = `${date.toLocaleString('id-ID', { month: 'long' })} ${year}`;
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    let allDays = [];
+    for (let i = 0; i < startDay; i++) {
+      allDays.push('');
+    }
+
+    for (let day = 1; day <= lastDate; day++) {
+      allDays.push(day);
+    }
+
+    let row = 0;
+    for (let i = 0; i < allDays.length; i += 7) {
+      const week = allDays.slice(i, i + 7);
+      const weekRow = document.createElement('div');
+      weekRow.className = `grid grid-cols-7 text-sm text-center`;
+
+      week.forEach((day, idx) => {
+        const thisDate = new Date(year, month, day || 1);
+        thisDate.setHours(0, 0, 0, 0);
+        const isToday = thisDate.getTime() === today.getTime();
+
+        const cell = document.createElement('div');
+        const isSunday = idx === 0;
+        const textColor = isSunday ? 'text-red-500' : 'text-gray-800';
+
+        cell.className = `relative py-1 transition duration-150 ease-in-out ${day ? 'hover:bg-blue-100' : ''} ${isToday ? 'bg-blue-600 text-white font-semibold rounded-full w-7 h-7 flex items-center justify-center mx-auto' : textColor}`;
+        cell.innerHTML = day ? `<span>${day}</span>` : '';
+
+        weekRow.appendChild(cell);
+      });
+
+      calendarGrid.appendChild(weekRow);
+      row++;
+    }
+  }
+
+  prevMonthBtn.onclick = () => {
+    currentDate.setMonth(currentDate.getMonth() - 1);
+    generateCalendar(currentDate);
+  };
+
+  nextMonthBtn.onclick = () => {
+    currentDate.setMonth(currentDate.getMonth() + 1);
+    generateCalendar(currentDate);
+  };
+
+  generateCalendar(currentDate);
+</script>
+
+
+  </div>
+</section>
+
+
+<!-- Alur dan Syarat Pendaftaran -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-gray-700 overflow-hidden my-8">
+  <div>
+    <h3 class="text-lg font-semibold text-blue-700 mb-2">Alur Pendaftaran</h3>
+    <ol class="list-decimal ml-5 space-y-1">
+      <li>Klik tombol <strong>Daftar Sekarang</strong> atau scan barcode</li>
+      <li>Isi data diri & pilih jurusan</li>
+      <li>Upload dokumen</li>
+      <li>Wawancara & verifikasi di sekolah</li>
+      <li>Daftar ulang jika diterima</li>
+    </ol>
+    <a href="formulir.html" class="inline-block mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg text-sm hover:bg-blue-700 transition">
+      <i class="fas fa-edit"></i>
+      <span>Daftar Sekarang</span>
+    </a>
+  </div>
+  <div>
+    <h3 class="text-lg font-semibold text-blue-700 mb-2">Cara Daftar Ulang</h3>
+    <ol class="list-decimal ml-5 space-y-1">
+      <li>Datang langsung ke SMK Farmasi Majenang.</li>
+      <li>Via Transfer Bank BNI ke No. 0220 850 322 a.n. SMK FARMASI YPIA MAJENANG</li>
+      <li>Setelah transfer, kirim foto bukti ke WA <strong>0821-2600-3400</strong> (Ibu Tri Roisatul B. S.Pd)</li>
+    </ol>
+  </div>
+  <div>
+    <h3 class="text-lg font-semibold text-blue-700 mb-2">Syarat Pendaftaran</h3>
+    <ul class="list-disc ml-5 space-y-1">
+      <li>Membayar biaya pendaftaran Rp. 50.000</li>
+      <li>Mengisi formulir pendaftaran</li>
+      <li>Fotokopi ijazah SMP/MTs yang dilegalisir (1 lembar)</li>
+      <li>SKHU asli dan SKL (Surat Keterangan Lulus)</li>
+      <li>Fotokopi Kartu Keluarga (1 lembar)</li>
+      <li>Fotokopi KTP orang tua/wali (1 lembar)</li>
+      <li>Foto berwarna latar merah 3x4 (2 lembar)</li>
+    </ul>
+  </div>
+</div>
+  
+  
+  
+  <!-- Footer -->
+  <footer class="w-full py-6 border-t mt-12 px-6">
+    <div class="flex flex-wrap justify-center md:justify-between items-center gap-4 text-center md:text-left">
+      <div class="flex flex-wrap justify-center items-center space-x-4 text-blue-800 text-xl">
+        <a href="https://www.facebook.com/@smkfarmasiofficial" class="flex items-center space-x-2 hover:text-blue-600">
+          <i class="fab fa-facebook-f"></i>
+          <span class="hidden md:inline text-sm">Facebook</span>
+        </a>
+        <a href="https://www.instagram.com/smkfarmasiofficial" class="flex items-center space-x-2 hover:text-pink-600">
+          <i class="fab fa-instagram"></i>
+          <span class="hidden md:inline text-sm">Instagram</span>
+        </a>
+        <a href="https://www.youtube.com/@smkfarmasimajenang7524" class="flex items-center space-x-2 hover:text-red-600">
+          <i class="fab fa-youtube"></i>
+          <span class="hidden md:inline text-sm">YouTube</span>
+        </a>
+        <a href="https://www.tiktok.com/@smkfarmasimajenang" class="flex items-center space-x-2 hover:text-black">
+          <i class="fab fa-tiktok"></i>
+          <span class="hidden md:inline text-sm">TikTok</span>
+        </a>
+      </div>
+      <p class="text-gray-600 text-sm">&copy; 2025 SMK Farmasi Majenang</p>
+    </div>
+  </footer>
+  
+  
+</main>
+
+
+
+
+  </div>
+  
+  
+  <script>
+    const sidebar = document.getElementById("sidebar");
+    const menuToggle = document.getElementById("menuToggle");
+    const closeSidebar = document.getElementById("closeSidebar");menuToggle?.addEventListener("click", () => {
+  sidebar.classList.remove("-translate-x-full");
+});
+
+closeSidebar?.addEventListener("click", () => {
+  sidebar.classList.add("-translate-x-full");
+});
+
+  </script>
+  <!-- Tombol Back to Top -->
+<button id="backToTop"
+  class="fixed 
+         bottom-[88px] right-6 
+         w-12 h-12 
+         md:bottom-[94px] md:right-8 md:w-12 md:h-12
+         bg-blue-800 text-white aspect-square rounded-full shadow-lg hover:bg-blue-700 
+         transition-opacity opacity-0 pointer-events-none z-40 flex items-center justify-center">
+  <i class="fas fa-arrow-up text-base md:text-lg"></i>
+</button>
+
+<!-- Tombol WhatsApp -->
+<a href="https://wa.me/6281225172900?text=Halo%20saya%20mau%20tanya%20info%20ya"
+   target="_blank" 
+   rel="noopener noreferrer"
+   class="fixed 
+          bottom-4 right-4 
+          w-16 h-16 
+          md:bottom-6 md:right-6 md:w-16 md:h-16 
+          bg-green-600 text-white rounded-full shadow-xl hover:bg-green-500 
+          flex items-center justify-center z-50">
+  <i class="fab fa-whatsapp text-4xl"></i>
+</a>
+
+<!-- Card Ajakan WhatsApp -->
+<div id="waCard" 
+     class="fixed 
+            bottom-[88px] right-4 
+            md:bottom-28 md:right-6
+            bg-white shadow-2xl rounded-xl p-4 max-w-xs z-40
+            opacity-0 translate-y-4 pointer-events-none 
+            transition-all duration-500">
+  <div class="flex justify-between items-start">
+    <p class="text-sm text-gray-800">Ada pertanyaan? Klik tombol WhatsApp ya!</p>
+    <button id="closeWaCard" class="text-gray-400 hover:text-red-500 text-lg ml-3 leading-none">&times;</button>
+  </div>
+</div>
+
+<!-- Script untuk back to top -->
+  <script>
+    const backToTop = document.getElementById("backToTop");
+    const mainContent = document.querySelector("main");
+
+    // Menampilkan tombol "Back to Top" saat scroll
+    mainContent.addEventListener("scroll", () => {
+      if (mainContent.scrollTop > 300) {
+        backToTop.classList.remove("opacity-0", "pointer-events-none");
+      } else {
+        backToTop.classList.add("opacity-0", "pointer-events-none");
+      }
+    });
+
+    // Mengatur scroll ke atas saat tombol diklik
+    backToTop.addEventListener("click", () => {
+      mainContent.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  </script>
+  
+  <!-- Script -->
+<script>
+  const waCard = document.getElementById('waCard');
+  const closeWaCard = document.getElementById('closeWaCard');
+
+  // Munculkan card dengan animasi saat halaman dimuat
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      waCard.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
+      waCard.classList.add('opacity-100', 'translate-y-0');
+    }, 500);
+
+    // Hilangkan otomatis setelah 5 detik (5000ms)
+    setTimeout(() => {
+      waCard.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+      waCard.classList.remove('opacity-100', 'translate-y-0');
+    }, 5500);
+  });
+
+  // Bisa ditutup manual juga
+  closeWaCard.addEventListener('click', () => {
+    waCard.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+    waCard.classList.remove('opacity-100', 'translate-y-0');
+  });
+</script>
+
+<script>
+  document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+  });
+</script>
+</body>
+</html>

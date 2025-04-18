@@ -1,0 +1,342 @@
+<!DOCTYPE html><html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ekstrakurikuler - SMK Farmasi Majenang</title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <!-- Menambahkan favicon -->
+  <link rel="shortcut icon" href="./asset/favicon.png" type="image/x-icon">
+  <link rel="icon" href="favicon.png" type="image/x-icon">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <style>
+    html, body { height: 100%; overflow: hidden; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-thumb { background-color: #3b82f6; border-radius: 10px; }
+      .fade-in {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.8s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  #loader {
+    transition: opacity 0.5s ease;
+  }
+  #waCard.hide {
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+  }
+  img {
+  pointer-events: none;
+  user-select: none;
+}
+  </style>
+</head>
+<body class="bg-blue-50 flex flex-col min-h-screen scroll-smooth">
+  
+  <!-- Loader -->
+<div id="loader" class="fixed inset-0 z-[9999] bg-white flex items-center justify-center">
+  <div class="flex flex-col items-center">
+    <div class="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+    <p class="mt-4 text-blue-800 font-semibold text-sm animate-pulse">Memuat Halaman...</p>
+  </div>
+</div>
+
+<!-- Script untuk hilangkan loader saat halaman sudah siap -->
+<script>
+  window.addEventListener("load", () => {
+    const loader = document.getElementById("loader");
+    setTimeout(() => {
+      loader.classList.add("opacity-0");
+      loader.classList.add("pointer-events-none");
+    }, 500); // Efek fade-out
+  });
+</script>
+  
+  
+  
+  <!-- Navbar Mobile -->
+  <header class="md:hidden flex items-center justify-between bg-blue-800 text-white p-4 fixed top-0 left-0 w-full z-30 shadow-md">
+    <div class="flex items-center space-x-2">
+  <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow">
+  <img src="./asset/logo.png" alt="Logo" class="w-6 h-6 object-contain" />
+</div>
+  <h1 class="text-xl font-bold">SMK Farmasi Majenang</h1>
+</div>
+    <button id="menuToggle" class="text-white focus:outline-none">
+      <i class="fas fa-bars text-2xl"></i>
+    </button>
+  </header>
+  <div class="flex flex-1">
+    <!-- Sidebar -->
+    <aside id="sidebar" class="fixed md:sticky top-0 left-0 w-64 bg-blue-800 text-white p-4 z-50 h-screen md:h-auto md:self-start transform -translate-x-full md:translate-x-0 md:top-0 transition-transform duration-300 ease-in-out min-h-screen">
+      <div class="flex items-center justify-between md:block mb-4">
+        <div class="flex items-center space-x-3 mb-4">
+<div class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow">
+  <img src="./asset/logo.png" alt="Logo" class="w-6 h-6 object-contain" />
+</div>
+<div class="text-offcanvas">
+  <h2 class="text-2xl font-bold">SMK Farmasi</h2>
+  <p class="text-sm">Majenang</p>
+</div>
+</div>
+        <button id="closeSidebar" class="md:hidden text-white text-2xl">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <nav class="flex flex-col space-y-4">
+        <a href="index.html" class="hover:bg-blue-500 px-4 py-2 rounded flex items-center"><i class="fas fa-home mr-2"></i> Dashboard</a>
+        <a href="profil.html" class="hover:bg-blue-500 px-4 py-2 rounded flex items-center"><i class="fas fa-school mr-2"></i> Profil Sekolah</a>
+        <a href="jurusan.html" class="hover:bg-blue-500 px-4 py-2 rounded flex items-center"><i class="fas fa-vials mr-2"></i> Program Keahlian</a>
+        <a href="ekskul.html" class="bg-blue-500 px-4 py-2 rounded flex items-center"><i class="fas fa-users mr-2"></i> Ekstrakurikuler</a>
+        <a href="pendaftaran.html" class="hover:bg-blue-500 px-4 py-2 rounded flex items-center"><i class="fas fa-file-alt mr-2"></i> Pendaftaran</a>
+      </nav>
+      
+       <div class="md:hidden mt-6">
+  <a href="formulir.html"
+     class="block md:hidden w-full text-center bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-500">
+    <i class="fas fa-edit mr-2 inline-block"></i> Daftar Sekarang
+  </a>
+</div>
+      
+    </aside>
+    
+    
+    <!-- Main -->
+<main class="flex-1 p-6 w-full overflow-y-auto h-screen pt-20 md:pt-6">
+  
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-3xl font-semibold text-blue-800">Ekstrakurikuler</h1> <!-- Tombol Daftar Sekarang -->
+    <a href="formulir.html" class="flex items-center space-x-2 bg-blue-800 text-white px-4 py-2 rounded hover:bg-blue-700 transition hidden md:flex">
+  <i class="fas fa-edit"></i>
+  <span class="hidden md:inline">Daftar Sekarang</span>
+</a>
+    
+  </div>
+  
+
+  
+<section class="py-2 max-w-6xl">
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="bg-white rounded-xl shadow-md overflow-hidden transform transition duration-300 ease-in-out hover:scale-105">
+      <div class="relative">
+        <img src="./asset/osis.jpeg" alt="OSIS" class="w-full h-48 object-cover">
+      </div>
+      <div class="p-4">
+        <h3 class="text-lg font-semibold mb-1">OSIS</h3>
+        <p class="text-sm text-gray-600 mb-3">Organisasi Siswa Intra Sekolah yang membentuk karakter kepemimpinan, kreativitas, dan manajemen acara sekolah.</p>
+        <a href="https://www.instagram.com/osis_farmasimajenang?igsh=MWNhc3dmMW4zaXp6MQ==" class="text-blue-600 hover:underline">Lihat Selengkapnya</a>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-xl shadow-md overflow-hidden transform transition duration-300 ease-in-out hover:scale-105">
+      <div class="relative">
+        <img src="./asset/pks.jpeg" alt="PKS" class="w-full h-48 object-cover">
+      </div>
+      <div class="p-4">
+        <h3 class="text-lg font-semibold mb-1">PKS</h3>
+        <p class="text-sm text-gray-600 mb-3">Pasukan Keamanan Sekolah berperan dalam ketertiban, baris-berbaris, dan kedisiplinan pelajar.</p>
+        <a href="https://www.instagram.com/pkssmkfarmasimajenang?igsh=MTZycWpncHcxZ2xoNQ==" class="text-blue-600 hover:underline">Lihat Selengkapnya</a>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-xl shadow-md overflow-hidden transform transition duration-300 ease-in-out hover:scale-105">
+      <div class="relative">
+        <img src="./asset/futsal.jpeg" alt="Futsal" class="w-full h-48 object-cover">
+      </div>
+      <div class="p-4">
+        <h3 class="text-lg font-semibold mb-1">Futsal</h3>
+        <p class="text-sm text-gray-600 mb-3">Ekstrakurikuler olahraga yang berfokus pada permainan tim, teknik, dan sportivitas.</p>
+        <a href="https://www.instagram.com/farmasi.futsal?igsh=MXBwdzZseHNrdXBlYw==" class="text-blue-600 hover:underline">Lihat Selengkapnya</a>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-xl shadow-md overflow-hidden transform transition duration-300 ease-in-out hover:scale-105">
+      <div class="relative">
+        <img src="./asset/psht.jpeg" alt="PSHT" class="w-full h-48 object-cover">
+      </div>
+      <div class="p-4">
+        <h3 class="text-lg font-semibold mb-1">PSHT</h3>
+        <p class="text-sm text-gray-600 mb-3">Persaudaraan Setia Hati Terate mengajarkan bela diri dan nilai-nilai luhur persaudaraan.</p>
+        <a href="https://www.instagram.com/psht_rayon_smkfarmasi?igsh=OGM5dDcyZjl1dndo" class="text-blue-600 hover:underline">Lihat Selengkapnya</a>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-xl shadow-md overflow-hidden transform transition duration-300 ease-in-out hover:scale-105">
+      <div class="relative">
+        <img src="./asset/farmapala.jpeg" alt="Farmapala" class="w-full h-48 object-cover">
+      </div>
+      <div class="p-4">
+        <h3 class="text-lg font-semibold mb-1">Farmapala</h3>
+        <p class="text-sm text-gray-600 mb-3">Kelompok pecinta alam yang sering mengadakan pendakian, kamp lingkungan, dan aksi sosial.</p>
+        <a href="https://www.instagram.com/farmapalanew_?igsh=a2VndjhlaTI0Zzdy" class="text-blue-600 hover:underline">Lihat Selengkapnya</a>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-xl shadow-md overflow-hidden transform transition duration-300 ease-in-out hover:scale-105">
+      <div class="relative">
+        <img src="./asset/pmr.jpeg" alt="PMR" class="w-full h-48 object-cover">
+      </div>
+      <div class="p-4">
+        <h3 class="text-lg font-semibold mb-1">PMR</h3>
+        <p class="text-sm text-gray-600 mb-3">Palang Merah Remaja melatih siswa dalam pertolongan pertama dan pelayanan sosial.</p>
+        <a href="https://www.instagram.com/pmrwirasmkfarmasi?igsh=MWdzbnZtcWxqbTNxaw==" class="text-blue-600 hover:underline">Lihat Selengkapnya</a>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-xl shadow-md overflow-hidden transform transition duration-300 ease-in-out hover:scale-105">
+      <div class="relative">
+        <img src="./asset/kafila.jpeg" alt="Khafila" class="w-full h-48 object-cover">
+      </div>
+      <div class="p-4">
+        <h3 class="text-lg font-semibold mb-1">Kafila</h3>
+        <p class="text-sm text-gray-600 mb-3">Ekstrakurikuler keagamaan yang memperdalam pemahaman dan praktik ibadah.</p>
+        <a href="https://www.instagram.com/kafilahsmecfam_?igsh=NTRrZTYxcmxicW9v" class="text-blue-600 hover:underline">Lihat Selengkapnya</a>
+      </div>
+    </div>
+  </div>
+</section>
+  
+  
+  <!-- Footer -->
+  <footer class="w-full py-6 border-t mt-12 px-6">
+    <div class="flex flex-wrap justify-center md:justify-between items-center gap-4 text-center md:text-left">
+      <div class="flex flex-wrap justify-center items-center space-x-4 text-blue-800 text-xl">
+        <a href="https://www.facebook.com/@smkfarmasiofficial" class="flex items-center space-x-2 hover:text-blue-600">
+          <i class="fab fa-facebook-f"></i>
+          <span class="hidden md:inline text-sm">Facebook</span>
+        </a>
+        <a href="https://www.instagram.com/smkfarmasiofficial" class="flex items-center space-x-2 hover:text-pink-600">
+          <i class="fab fa-instagram"></i>
+          <span class="hidden md:inline text-sm">Instagram</span>
+        </a>
+        <a href="https://www.youtube.com/@smkfarmasimajenang7524" class="flex items-center space-x-2 hover:text-red-600">
+          <i class="fab fa-youtube"></i>
+          <span class="hidden md:inline text-sm">YouTube</span>
+        </a>
+        <a href="https://www.tiktok.com/@smkfarmasimajenang" class="flex items-center space-x-2 hover:text-black">
+          <i class="fab fa-tiktok"></i>
+          <span class="hidden md:inline text-sm">TikTok</span>
+        </a>
+      </div>
+      <p class="text-gray-600 text-sm">&copy; 2025 SMK Farmasi Majenang</p>
+    </div>
+  </footer>
+  
+  
+</main>
+
+
+
+
+  </div>
+  
+  
+  <script>
+    const sidebar = document.getElementById("sidebar");
+    const menuToggle = document.getElementById("menuToggle");
+    const closeSidebar = document.getElementById("closeSidebar");menuToggle?.addEventListener("click", () => {
+  sidebar.classList.remove("-translate-x-full");
+});
+
+closeSidebar?.addEventListener("click", () => {
+  sidebar.classList.add("-translate-x-full");
+});
+
+  </script>
+  <!-- Tombol Back to Top -->
+<button id="backToTop"
+  class="fixed 
+         bottom-[88px] right-6 
+         w-12 h-12 
+         md:bottom-[94px] md:right-8 md:w-12 md:h-12
+         bg-blue-800 text-white aspect-square rounded-full shadow-lg hover:bg-blue-700 
+         transition-opacity opacity-0 pointer-events-none z-40 flex items-center justify-center">
+  <i class="fas fa-arrow-up text-base md:text-lg"></i>
+</button>
+
+<!-- Tombol WhatsApp -->
+<a href="https://wa.me/6281225172900?text=Halo%20saya%20mau%20tanya%20info%20ya"
+   target="_blank" 
+   rel="noopener noreferrer"
+   class="fixed 
+          bottom-4 right-4 
+          w-16 h-16 
+          md:bottom-6 md:right-6 md:w-16 md:h-16 
+          bg-green-600 text-white rounded-full shadow-xl hover:bg-green-500 
+          flex items-center justify-center z-50">
+  <i class="fab fa-whatsapp text-4xl"></i>
+</a>
+
+<!-- Card Ajakan WhatsApp -->
+<div id="waCard" 
+     class="fixed 
+            bottom-[88px] right-4 
+            md:bottom-28 md:right-6
+            bg-white shadow-2xl rounded-xl p-4 max-w-xs z-40
+            opacity-0 translate-y-4 pointer-events-none 
+            transition-all duration-500">
+  <div class="flex justify-between items-start">
+    <p class="text-sm text-gray-800">Ada pertanyaan? Klik tombol WhatsApp ya!</p>
+    <button id="closeWaCard" class="text-gray-400 hover:text-red-500 text-lg ml-3 leading-none">&times;</button>
+  </div>
+</div>
+
+<!-- Script untuk back to top -->
+  <script>
+    const backToTop = document.getElementById("backToTop");
+    const mainContent = document.querySelector("main");
+
+    // Menampilkan tombol "Back to Top" saat scroll
+    mainContent.addEventListener("scroll", () => {
+      if (mainContent.scrollTop > 300) {
+        backToTop.classList.remove("opacity-0", "pointer-events-none");
+      } else {
+        backToTop.classList.add("opacity-0", "pointer-events-none");
+      }
+    });
+
+    // Mengatur scroll ke atas saat tombol diklik
+    backToTop.addEventListener("click", () => {
+      mainContent.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  </script>
+  
+  <!-- Script -->
+<script>
+  const waCard = document.getElementById('waCard');
+  const closeWaCard = document.getElementById('closeWaCard');
+
+  // Munculkan card dengan animasi saat halaman dimuat
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      waCard.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
+      waCard.classList.add('opacity-100', 'translate-y-0');
+    }, 500);
+
+    // Hilangkan otomatis setelah 5 detik (5000ms)
+    setTimeout(() => {
+      waCard.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+      waCard.classList.remove('opacity-100', 'translate-y-0');
+    }, 5500);
+  });
+
+  // Bisa ditutup manual juga
+  closeWaCard.addEventListener('click', () => {
+    waCard.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+    waCard.classList.remove('opacity-100', 'translate-y-0');
+  });
+</script>
+
+<script>
+  document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+  });
+</script>
+</body>
+</html>

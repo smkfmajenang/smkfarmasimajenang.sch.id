@@ -1,0 +1,337 @@
+<!DOCTYPE html><html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Program Keahlian - SMK Farmasi Majenang</title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+<!-- Menambahkan favicon -->
+  <link rel="shortcut icon" href="./asset/favicon.png" type="image/x-icon">
+  <link rel="icon" href="favicon.png" type="image/x-icon">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <style>
+    html, body { height: 100%; overflow: hidden; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-thumb { background-color: #3b82f6; border-radius: 10px; }
+      .fade-in {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.8s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  #loader {
+    transition: opacity 0.5s ease;
+  }
+  #waCard.hide {
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+  }
+  img {
+  pointer-events: none;
+  user-select: none;
+}
+  </style>
+</head>
+<body class="bg-blue-50 flex flex-col min-h-screen scroll-smooth">
+  
+  <!-- Loader -->
+<div id="loader" class="fixed inset-0 z-[9999] bg-white flex items-center justify-center">
+  <div class="flex flex-col items-center">
+    <div class="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+    <p class="mt-4 text-blue-800 font-semibold text-sm animate-pulse">Memuat Halaman...</p>
+  </div>
+</div>
+
+<!-- Script untuk hilangkan loader saat halaman sudah siap -->
+<script>
+  window.addEventListener("load", () => {
+    const loader = document.getElementById("loader");
+    setTimeout(() => {
+      loader.classList.add("opacity-0");
+      loader.classList.add("pointer-events-none");
+    }, 500); // Efek fade-out
+  });
+</script>
+  
+  
+  
+  <!-- Navbar Mobile -->
+  <header class="md:hidden flex items-center justify-between bg-blue-800 text-white p-4 fixed top-0 left-0 w-full z-30 shadow-md">
+    <div class="flex items-center space-x-2">
+  <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow">
+  <img src="./asset/logo.png" alt="Logo" class="w-6 h-6 object-contain" />
+</div>
+  <h1 class="text-xl font-bold">SMK Farmasi Majenang</h1>
+</div>
+    <button id="menuToggle" class="text-white focus:outline-none">
+      <i class="fas fa-bars text-2xl"></i>
+    </button>
+  </header>
+  <div class="flex flex-1">
+    <!-- Sidebar -->
+    <aside id="sidebar" class="fixed md:sticky top-0 left-0 w-64 bg-blue-800 text-white p-4 z-50 h-screen md:h-auto md:self-start transform -translate-x-full md:translate-x-0 md:top-0 transition-transform duration-300 ease-in-out min-h-screen">
+      <div class="flex items-center justify-between md:block mb-4">
+        <div class="flex items-center space-x-3 mb-4">
+<div class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow">
+  <img src="./asset/logo.png" alt="Logo" class="w-6 h-6 object-contain" />
+</div>
+  <div class="text-offcanvas">
+  <h2 class="text-2xl font-bold">SMK Farmasi</h2>
+  <p class="text-sm">Majenang</p>
+</div>
+</div>
+        <button id="closeSidebar" class="md:hidden text-white text-2xl">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <nav class="flex flex-col space-y-4">
+        <a href="index.html" class="hover:bg-blue-500 px-4 py-2 rounded flex items-center"><i class="fas fa-home mr-2"></i> Dashboard</a>
+        <a href="profil.html" class="hover:bg-blue-500 px-4 py-2 rounded flex items-center"><i class="fas fa-school mr-2"></i> Profil Sekolah</a>
+        <a href="jurusan.html" class="bg-blue-500 px-4 py-2 rounded flex items-center"><i class="fas fa-vials mr-2"></i> Program Keahlian</a>
+        <a href="ekskul.html" class="hover:bg-blue-500 px-4 py-2 rounded flex items-center"><i class="fas fa-users mr-2"></i> Ekstrakurikuler</a>
+        <a href="pendaftaran.html" class="hover:bg-blue-500 px-4 py-2 rounded flex items-center"><i class="fas fa-file-alt mr-2"></i> Pendaftaran</a>
+      </nav>
+      
+      <div class="md:hidden mt-6">
+  <a href="formulir.html"
+     class="block md:hidden w-full text-center bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-500">
+    <i class="fas fa-edit mr-2 inline-block"></i> Daftar Sekarang
+  </a>
+</div>
+      
+    </aside>
+    
+    
+    <!-- Main -->
+<main class="flex-1 p-6 w-full overflow-y-auto h-screen pt-20 md:pt-6">
+  
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-3xl font-semibold text-blue-800">Program Keahlian</h1>
+    <!-- Tombol Daftar Sekarang -->
+    <a href="formulir.html" class="flex items-center space-x-2 bg-blue-800 text-white px-4 py-2 rounded hover:bg-blue-700 transition hidden md:flex">
+  <i class="fas fa-edit"></i>
+  <span class="hidden md:inline">Daftar Sekarang</span>
+</a>
+  </div>
+  
+  <section class="py-2 max-w-6xl mx-auto">
+
+    <!-- Farmasi Klinis dan Komunitas -->
+    <div class="grid md:grid-cols-2 gap-8 items-center mb-16">
+      <div>
+        <img src="./asset/jurusanfarmasi.jpg" alt="Farmasi Klinis dan Komunitas" class="rounded-lg shadow-md w-full h-auto transition-transform duration-300 hover:scale-105">
+      </div>
+      <div>
+        <h2 class="text-2xl font-semibold text-blue-700 mb-4">Farmasi Klinis dan Komunitas</h2>
+        <p class="text-gray-700 leading-relaxed mb-4">
+          Membekali siswa dengan keterampilan pelayanan kefarmasian di klinik maupun masyarakat. Program ini mencakup pengetahuan obat, peracikan resep, manajemen apotek, hingga praktik lapangan langsung di fasilitas kesehatan.
+        </p>
+        <ul class="list-disc pl-5 text-gray-700 text-sm space-y-2 mb-4">
+          <li>Laboratorium farmasi lengkap dan modern</li>
+          <li>Praktik kerja industri di apotek & rumah sakit</li>
+          <li>Penguasaan resep dan obat generik</li>
+        </ul>
+        <div class="text-sm text-gray-600">
+          <p><strong>Peluang Karir:</strong> Apoteker asisten, tenaga farmasi klinik, operator produksi farmasi.</p>
+          <p><strong>Kelanjutan Studi:</strong> Dapat melanjutkan kuliah ke S1 Farmasi, Analis Kesehatan, atau Kebidanan.</p>
+          <p><strong>Menariknya:</strong> Banyak lulusan langsung diterima kerja di apotek atau klinik mitra.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Analisis Pengujian Laboratorium (APL) -->
+    <div class="grid md:grid-cols-2 gap-8 items-center mb-16">
+      <div class="order-2 md:order-1">
+        <h2 class="text-2xl font-semibold text-blue-700 mb-4">Analisis Pengujian Laboratorium (APL)</h2>
+        <p class="text-gray-700 leading-relaxed mb-4">
+          Fokus pada teknik analisis kimia, biologi, dan fisika di berbagai laboratorium pengujian. Siswa dilatih mengoperasikan alat laboratorium modern, melakukan analisis sampel, dan memahami standar mutu pengujian.
+        </p>
+        <ul class="list-disc pl-5 text-gray-700 text-sm space-y-2 mb-4">
+          <li>Analisis kimia dan mikrobiologi</li>
+          <li>Simulasi pengujian produk industri</li>
+          <li>Praktik kerja di laboratorium profesional</li>
+        </ul>
+        <div class="text-sm text-gray-600">
+          <p><strong>Peluang Karir:</strong> Teknisi laboratorium, analis mutu produk, asisten penelitian.</p>
+          <p><strong>Kelanjutan Studi:</strong> Kuliah ke jurusan Kimia, Biologi, Analis Kesehatan, atau Teknologi Pangan.</p>
+          <p><strong>Menariknya:</strong> Cocok untuk yang suka eksperimen dan tertarik pada dunia penelitian.</p>
+        </div>
+      </div>
+      <div class="order-1 md:order-2">
+        <img src="./asset/jurusanapl.jpeg" alt="Analisis Pengujian Laboratorium" class="rounded-lg shadow-md w-full h-auto  transition-transform duration-300 hover:scale-105">
+      </div>
+    </div>
+
+    <!-- Rekayasa Perangkat Lunak (RPL) -->
+    <div class="grid md:grid-cols-2 gap-8 items-center mb-16">
+      <div>
+        <img src="./asset/jurusanrpl.jpeg" alt="Rekayasa Perangkat Lunak" class="rounded-lg shadow-md w-full h-auto  transition-transform duration-300 hover:scale-105">
+      </div>
+      <div>
+        <h2 class="text-2xl font-semibold text-blue-700 mb-4">Rekayasa Perangkat Lunak (RPL)</h2>
+        <p class="text-gray-700 leading-relaxed mb-4">
+          Fokus pada pengembangan aplikasi dan teknologi digital. Siswa belajar tentang pemrograman, desain UI/UX, pembuatan aplikasi web & mobile, hingga proyek nyata yang menyiapkan mereka jadi developer profesional.
+        </p>
+        <ul class="list-disc pl-5 text-gray-700 text-sm space-y-2 mb-4">
+          <li>Belajar HTML, CSS, JavaScript, dan framework</li>
+          <li>Project Based Learning (PBL)</li>
+          <li>Magang di startup & perusahaan IT</li>
+        </ul>
+        <div class="text-sm text-gray-600">
+          <p><strong>Peluang Karir:</strong> Web developer, mobile developer, UI/UX designer, IT support.</p>
+          <p><strong>Kelanjutan Studi:</strong> Teknik Informatika, Sistem Informasi, Cyber Security, dll.</p>
+          <p><strong>Menariknya:</strong> Bisa langsung freelance atau buat startup sendiri sejak sekolah.</p>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+    
+    
+  </section>
+  
+  
+  
+  <!-- Footer -->
+  <footer class="w-full py-6 border-t px-6">
+    <div class="flex flex-wrap justify-center md:justify-between items-center gap-4 text-center md:text-left">
+      <div class="flex flex-wrap justify-center items-center space-x-4 text-blue-800 text-xl">
+        <a href="https://www.facebook.com/@smkfarmasiofficial" class="flex items-center space-x-2 hover:text-blue-600">
+          <i class="fab fa-facebook-f"></i>
+          <span class="hidden md:inline text-sm">Facebook</span>
+        </a>
+        <a href="https://www.instagram.com/smkfarmasiofficial" class="flex items-center space-x-2 hover:text-pink-600">
+          <i class="fab fa-instagram"></i>
+          <span class="hidden md:inline text-sm">Instagram</span>
+        </a>
+        <a href="https://www.youtube.com/@smkfarmasimajenang7524" class="flex items-center space-x-2 hover:text-red-600">
+          <i class="fab fa-youtube"></i>
+          <span class="hidden md:inline text-sm">YouTube</span>
+        </a>
+        <a href="https://www.tiktok.com/@smkfarmasimajenang" class="flex items-center space-x-2 hover:text-black">
+          <i class="fab fa-tiktok"></i>
+          <span class="hidden md:inline text-sm">TikTok</span>
+        </a>
+      </div>
+      <p class="text-gray-600 text-sm">&copy; 2025 SMK Farmasi Majenang</p>
+    </div>
+  </footer>
+  
+  
+</main>
+
+
+
+
+  </div>
+  
+  
+  <script>
+    const sidebar = document.getElementById("sidebar");
+    const menuToggle = document.getElementById("menuToggle");
+    const closeSidebar = document.getElementById("closeSidebar");menuToggle?.addEventListener("click", () => {
+  sidebar.classList.remove("-translate-x-full");
+});
+
+closeSidebar?.addEventListener("click", () => {
+  sidebar.classList.add("-translate-x-full");
+});
+
+  </script>
+  
+  <!-- Tombol Back to Top -->
+<button id="backToTop"
+  class="fixed 
+         bottom-[88px] right-6 
+         w-12 h-12 
+         md:bottom-[94px] md:right-8 md:w-12 md:h-12
+         bg-blue-800 text-white aspect-square rounded-full shadow-lg hover:bg-blue-700 
+         transition-opacity opacity-0 pointer-events-none z-40 flex items-center justify-center">
+  <i class="fas fa-arrow-up text-base md:text-lg"></i>
+</button>
+
+<!-- Tombol WhatsApp -->
+<a href="https://wa.me/6281225172900?text=Halo%20saya%20mau%20tanya%20info%20ya"
+   target="_blank" 
+   rel="noopener noreferrer"
+   class="fixed 
+          bottom-4 right-4 
+          w-16 h-16 
+          md:bottom-6 md:right-6 md:w-16 md:h-16 
+          bg-green-600 text-white rounded-full shadow-xl hover:bg-green-500 
+          flex items-center justify-center z-50">
+  <i class="fab fa-whatsapp text-4xl"></i>
+</a>
+
+<!-- Card Ajakan WhatsApp -->
+<div id="waCard" 
+     class="fixed 
+            bottom-[88px] right-4 
+            md:bottom-28 md:right-6
+            bg-white shadow-2xl rounded-xl p-4 max-w-xs z-40
+            opacity-0 translate-y-4 pointer-events-none 
+            transition-all duration-500">
+  <div class="flex justify-between items-start">
+    <p class="text-sm text-gray-800">Ada pertanyaan? Klik tombol WhatsApp ya!</p>
+    <button id="closeWaCard" class="text-gray-400 hover:text-red-500 text-lg ml-3 leading-none">&times;</button>
+  </div>
+</div>
+
+<!-- Script untuk back to top -->
+  <script>
+    const backToTop = document.getElementById("backToTop");
+    const mainContent = document.querySelector("main");
+
+    // Menampilkan tombol "Back to Top" saat scroll
+    mainContent.addEventListener("scroll", () => {
+      if (mainContent.scrollTop > 300) {
+        backToTop.classList.remove("opacity-0", "pointer-events-none");
+      } else {
+        backToTop.classList.add("opacity-0", "pointer-events-none");
+      }
+    });
+
+    // Mengatur scroll ke atas saat tombol diklik
+    backToTop.addEventListener("click", () => {
+      mainContent.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  </script>
+  
+  <!-- Script -->
+<script>
+  const waCard = document.getElementById('waCard');
+  const closeWaCard = document.getElementById('closeWaCard');
+
+  // Munculkan card dengan animasi saat halaman dimuat
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      waCard.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
+      waCard.classList.add('opacity-100', 'translate-y-0');
+    }, 500);
+
+    // Hilangkan otomatis setelah 5 detik (5000ms)
+    setTimeout(() => {
+      waCard.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+      waCard.classList.remove('opacity-100', 'translate-y-0');
+    }, 5500);
+  });
+
+  // Bisa ditutup manual juga
+  closeWaCard.addEventListener('click', () => {
+    waCard.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+    waCard.classList.remove('opacity-100', 'translate-y-0');
+  });
+</script>
+<script>
+  document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+  });
+</script>
+</body>
+</html>

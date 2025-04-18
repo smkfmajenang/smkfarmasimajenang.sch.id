@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard - SMK Farmasi Majenang</title>
+  
+  <!-- Menambahkan favicon -->
+  <link rel="shortcut icon" href="./asset/favicon.png" type="image/x-icon">
+  <link rel="icon" href="favicon.png" type="image/x-icon">
+  
+  <!-- Mengimpor Font Awesome untuk ikon -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  
+  <!-- Mengimpor Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  
+  <style>
+    /* Gaya untuk scrollbar */
+    html, body { height: 100%; overflow: hidden; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-thumb { background-color: #3b82f6; border-radius: 10px; }
+
+    /* Animasi fade-in */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.8s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Loader */
+    #loader {
+      transition: opacity 0.5s ease;
+    }
+    
+  #waCard.hide {
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+  }
+  img {
+  pointer-events: none;
+  user-select: none;
+}
+  </style>
+</head>
+<body class="bg-blue-50 flex flex-col min-h-screen scroll-smooth">
+  
+  <!-- Loader untuk menampilkan saat halaman dimuat -->
+  <div id="loader" class="fixed inset-0 z-[9999] bg-white flex items-center justify-center">
+    <div class="flex flex-col items-center">
+      <div class="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+      <p class="mt-4 text-blue-800 font-semibold text-sm animate-pulse">Memuat Halaman...</p>
+    </div>
+  </div>
+  
+  <!-- Navbar Mobile -->
+  <header class="md:hidden flex items-center justify-between bg-blue-800 text-white p-4 fixed top-0 left-0 w-full z-30 shadow-md">
+    <div class="flex items-center space-x-2">
+      <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow">
+        <img src="./asset/logo.png" alt="Logo" class="w-6 h-6 object-contain" />
+      </div>
+      <h1 class="text-xl font-bold">SMK Farmasi Majenang</h1>
+    </div>
+    <button id="menuToggle" class="text-white focus:outline-none">
+      <i class="fas fa-bars text-2xl"></i>
+    </button>
+  </header>
+
+  <div class="flex flex-1">
+    <!-- Sidebar -->
+    <aside id="sidebar" class="fixed md:sticky top-0 left-0 w-64 bg-blue-800 text-white p-4 z-50 h-screen md:h-auto md:self-start transform -translate-x-full md:translate-x-0 md:top-0 transition-transform duration-300 ease-in-out min-h-screen">
+      <div class="flex items-center justify-between md:block mb-4">
+        <div class="flex items-center space-x-3 mb-4">
+          <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow">
+            <img src="./asset/logo.png" alt="Logo" class="w-6 h-6 object-contain" />
+          </div>
+          <div class="text-offcanvas">
+  <h2 class="text-2xl font-bold">SMK Farmasi</h2>
+  <p class="text-sm">Majenang</p>
+</div>
+        </div>
+        <button id="closeSidebar" class="md:hidden text-white text-2xl">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+            <nav class="flex flex-col space-y-4">
+        <a href="index.html" class="bg-blue-500 px-4 py-2 rounded flex items-center"><i class="fas fa-home mr-2"></i> Dashboard</a>
+        <a href="profil.html" class="hover:bg-blue-500 px-4 py-2 rounded flex items-center"><i class="fas fa-school mr-2"></i> Profil Sekolah</a>
+        <a href="jurusan.html" class="hover:bg-blue-500 px-4 py-2 rounded flex items-center"><i class="fas fa-vials mr-2"></i> Program Keahlian</a>
+        <a href="ekskul.html" class="hover:bg-blue-500 px-4 py-2 rounded flex items-center"><i class="fas fa-users mr-2"></i> Ekstrakurikuler</a>
+        <a href="pendaftaran.html" class="hover:bg-blue-500 px-4 py-2 rounded flex items-center"><i class="fas fa-file-alt mr-2"></i> Pendaftaran</a>
+      </nav>
+      
+<div class="md:hidden mt-6">
+  <a href="formulir.html"
+     class="block md:hidden w-full text-center bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-500">
+    <i class="fas fa-edit mr-2 inline-block"></i> Daftar Sekarang
+  </a>
+</div>
+
+
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-6 w-full overflow-y-auto h-screen pt-20 md:pt-6">
+      <div class="flex justify-between items-center mb-6">
+        <h1 class="text-3xl font-semibold text-blue-800">Dashboard</h1>
+        <!-- Tombol Daftar Sekarang -->
+
+<a href="formulir.html" class="flex items-center space-x-2 bg-blue-800 text-white px-4 py-2 rounded hover:bg-blue-700 transition hidden md:flex">
+  <i class="fas fa-edit"></i>
+  <span class="hidden md:inline">Daftar Sekarang</span>
+</a>
+
+        
+      </div>
+
+      <!-- Banner -->
+      <div class="relative h-56 md:h-72 lg:h-80 mb-6">
+        <img src="./asset/banner.jpeg" alt="Banner" class="w-full h-full object-cover rounded-lg shadow-md" />
+        <div class="absolute inset-0 bg-blue-900 bg-opacity-50 flex flex-col justify-center items-center text-white text-center rounded-lg">
+          <h1 class="text-2xl md:text-4xl font-bold mb-2">Selamat Datang di SMK Farmasi Majenang</h1>
+          <p class="text-sm md:text-lg">Sekolah Vokasi Unggulan di Bidang Kesehatan dan Farmasi</p>
+        </div>
+      </div>
+
+      <!-- Dua Kolom Layout -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Konten Utama -->
+        <div class="lg:col-span-2 space-y-10">
+
+          <!-- Sekilas Tentang -->
+          <section>
+            <h2 class="text-xl font-bold text-gray-800 mb-4">Sekilas SMK Farmasi Majenang</h2>
+            <p class="text-gray-700 leading-relaxed">
+              SMK Farmasi Majenang merupakan lembaga pendidikan vokasi yang fokus pada pengembangan kompetensi di bidang kesehatan, khususnya farmasi. Dengan tenaga pengajar profesional dan fasilitas lengkap, sekolah ini berkomitmen mencetak lulusan yang siap kerja dan berdaya saing tinggi.
+            </p>
+          </section>
+
+          <!-- Statistik SMK Farmasi Majenang -->
+          <section id="statistik" class="bg-white py-5">
+            <div class="container mx-auto px-4 text-center">
+              <h2 class="text-xl font-bold text-gray-800 mb-10">Statistik Sekolah</h2>
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="fade-in">
+                  <h3 class="text-2xl font-bold text-indigo-700 count" data-count="15000">0</h3>
+                                    <p class="text-sm text-gray-600 mt-1">Lulusan Terbaik</p>
+                </div>
+                <div class="fade-in">
+                  <h3 class="text-2xl font-bold text-indigo-700 count" id="visitorCounter" data-count="1000">0</h3>
+                  <p class="text-sm text-gray-600 mt-1">Pengunjung Situs</p>
+
+                </div>
+                
+                <div class="fade-in">
+                  <h3 class="text-2xl font-bold text-indigo-700 count" data-count="20000">0</h3>
+                  <p class="text-sm text-gray-600 mt-1">Siswa Bergabung</p>
+                </div>
+                <div class="fade-in">
+                  <h3 class="text-2xl font-bold text-indigo-700 count" data-count="45">0</h3>
+                  <p class="text-sm text-gray-600 mt-1">Guru & Tenaga Pendidik</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="py-2" id="fasilitas">
+            <h2 class="text-xl font-bold text-gray-800 text-center mb-4">Fasilitas Sekolah</h2>
+            <p class="text-center text-gray-600 mb-10 max-w-2xl mx-auto">Berikut adalah fasilitas penunjang kegiatan belajar di SMK Farmasi Majenang.</p>
+          
+            <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 text-sm">
+              <div class="bg-white p-6 rounded-xl shadow transform transition duration-300 hover:scale-105">
+                <div class="flex items-center gap-3 mb-3 text-gray-600">
+                  <i class="fas fa-chalkboard-teacher text-xl"></i>
+                  <h3 class="text-lg font-semibold">Ruang Kelas Nyaman</h3>
+                </div>
+                <p class="text-gray-600">Ruang kelas dilengkapi kursi ergonomis, kipas/AC, dan proyektor pendukung pembelajaran.</p>
+              </div>
+          
+              <div class="bg-white p-6 rounded-xl shadow transform transition duration-300 hover:scale-105">
+                <div class="flex items-center gap-3 mb-3 text-gray-600">
+                  <i class="fas fa-vials text-xl"></i>
+                  <h3 class="text-lg font-semibold">Laboratorium Farmasi</h3>
+                </div>
+                <p class="text-gray-600">Fasilitas praktik lengkap dengan alat modern mendukung pembelajaran keterampilan siswa.</p>
+              </div>
+          
+              <div class="bg-white p-6 rounded-xl shadow transform transition duration-300 hover:scale-105">
+                <div class="flex items-center gap-3 mb-3 text-gray-600">
+                  <i class="fas fa-desktop text-xl"></i>
+                  <h3 class="text-lg font-semibold">Laboratorium Komputer</h3>
+                </div>
+                <p class="text-gray-600">Komputer dan internet untuk menunjang kegiatan belajar teknologi dan RPL.</p>
+              </div>
+          
+              <div class="bg-white p-6 rounded-xl shadow transform transition duration-300 hover:scale-105">
+                <div class="flex items-center gap-3 mb-3 text-gray-600">
+                  <i class="fas fa-book text-xl"></i>
+                  <h3 class="text-lg font-semibold">Perpustakaan</h3>
+                </div>
+                <p class="text-gray-600">Berisi buku pelajaran, referensi farmasi, dan bacaan umum yang mendukung literasi siswa.</p>
+              </div>
+          
+              <div class="bg-white p-6 rounded-xl shadow transform transition duration-300 hover:scale-105">
+                <div class="flex items-center gap-3 mb-3 text-gray-600">
+                  <i class="fas fa-futbol text-xl"></i>
+                  <h3 class="text-lg font-semibold">Lapangan Olahraga</h3>
+                </div>
+                <p class="text-gray-600">Lapangan untuk futsal, voli, dan kegiatan fisik lainnya demi kebugaran siswa.</p>
+              </div>
+          
+              <div class="bg-white p-6 rounded-xl shadow transform transition duration-300 hover:scale-105">
+                <div class="flex items-center gap-3 mb-3 text-gray-600">
+                  <i class="fas fa-mosque text-xl"></i>
+                  <h3 class="text-lg font-semibold">Mushola</h3>
+                </div>
+                <p class="text-gray-600">Tempat ibadah nyaman untuk mendukung kegiatan keagamaan warga sekolah.</p>
+              </div>
+            </div>
+          </section>
+          
+
+
+
+          <!-- Galeri -->
+          <section class="py-2">
+  <h2 class="text-xl font-bold text-gray-800 text-center mb-4">Galeri Kegiatan</h2>
+  <p class="text-center text-gray-600 mb-10 max-w-2xl mx-auto">Berikut adalah galeri kegiatan di SMK Farmasi Majenang.</p>
+  <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+    <div class="aspect-[4/3] overflow-hidden rounded-lg shadow transform transition duration-300 hover:scale-105">
+      <img src="./asset/kegiatan1.jpg" class="object-cover w-full h-full" />
+    </div>
+    <div class="aspect-[4/3] overflow-hidden rounded-lg shadow transform transition duration-300 hover:scale-105">
+      <img src="./asset/kegiatan2.jpeg" class="object-cover w-full h-full" />
+    </div>
+    <div class="aspect-[4/3] overflow-hidden rounded-lg shadow transform transition duration-300 hover:scale-105">
+      <img src="./asset/kegiatan3.jpg" class="object-cover w-full h-full" />
+    </div>
+    <div class="aspect-[4/3] overflow-hidden rounded-lg shadow transform transition duration-300 hover:scale-105">
+      <img src="./asset/kegiatan4.jpg" class="object-cover w-full h-full" />
+    </div>
+    <div class="aspect-[4/3] overflow-hidden rounded-lg shadow transform transition duration-300 hover:scale-105">
+      <img src="./asset/kegiatan5.jpeg" class="object-cover w-full h-full" />
+    </div>
+    <div class="aspect-[4/3] overflow-hidden rounded-lg shadow transform transition duration-300 hover:scale-105">
+      <img src="./asset/kegiatan6.jpeg" class="object-cover w-full h-full" />
+    </div>
+  </div>
+</section>
+
+          <!-- Testimoni Orang Tua -->
+<section>
+  <h2 class="text-xl font-bold text-gray-800 text-center mb-4">Testimoni Orang Tua Murid</h2>
+  <p class="text-center text-gray-600 mb-10 max-w-2xl mx-auto">Berikut adalah testimoni orang tua menyekolahkan anaknya di SMK Farmasi Majenang.</p>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div class="bg-white p-4 rounded-lg shadow border-l-4 border-blue-500 transform transition duration-300 hover:scale-105">
+      <p class="text-gray-700 italic">"Saya sangat bersyukur anak saya bersekolah di SMK Farmasi Majenang. Perkembangannya luar biasa."</p>
+      <p class="text-sm font-semibold mt-2 text-blue-600">- Ibu Sari, Orang Tua dari Alumni 2022</p>
+    </div>
+    <div class="bg-white p-4 rounded-lg shadow border-l-4 border-blue-500 transform transition duration-300 hover:scale-105">
+      <p class="text-gray-700 italic">"Lingkungan sekolahnya mendidik dan mendukung anak kami menjadi lebih disiplin dan mandiri."</p>
+      <p class="text-sm font-semibold mt-2 text-blue-600">- Bapak Dedi, Orang Tua Siswa Kelas XII</p>
+    </div>
+    <div class="bg-white p-4 rounded-lg shadow border-l-4 border-blue-500 transform transition duration-300 hover:scale-105">
+      <p class="text-gray-700 italic">"Guru-gurunya sangat perhatian dan selalu memberi motivasi. Anak saya jadi lebih semangat belajar."</p>
+      <p class="text-sm font-semibold mt-2 text-blue-600">- Ibu Lilis, Orang Tua Siswa Kelas XI</p>
+    </div>
+    <div class="bg-white p-4 rounded-lg shadow border-l-4 border-blue-500 transform transition duration-300 hover:scale-105">
+      <p class="text-gray-700 italic">"Program praktiknya sangat membantu anak saya memahami dunia kerja lebih awal."</p>
+      <p class="text-sm font-semibold mt-2 text-blue-600">- Bapak Herman, Orang Tua Alumni 2021</p>
+    </div>
+  </div>
+</section>
+
+
+          <!-- Kontak -->
+<section class="space-y-2">
+  <h2 class="text-xl font-bold text-gray-800">Kontak Kami</h2>
+  <form name="smkfamakontakform" class="bg-white rounded p-5 space-y-4 w-full" onsubmit="handleSubmit(event)">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <input name="nama" type="text" placeholder="Nama Lengkap" class="p-3 border rounded w-full md:col-span-2 focus:outline-none focus:ring" required />
+      <input name="email" type="email" placeholder="Email" class="p-3 border rounded w-full focus:outline-none focus:ring" required />
+      <input name="nohp" type="tel" placeholder="Nomor HP" class="p-3 border rounded w-full focus:outline-none focus:ring" required />
+    </div>
+    <textarea name="pesan" placeholder="Pesan" rows="5" class="w-full p-3 border rounded focus:outline-none focus:ring" required></textarea>
+    <button type="submit" id="submitBtn" class="bg-blue-800 text-white px-6 py-3 rounded hover:bg-blue-700 transition flex items-center justify-center gap-2">
+      Kirim
+    </button>
+  </form>
+</section>
+        </div>
+
+        <!-- Sidebar Berita -->
+        <aside class="space-y-6 sticky top-2 h-fit">
+          <h2 class="text-xl font-bold text-gray-800 mb-4">Berita Sekolah</h2>
+          <div class="space-y-4">
+  <div class="bg-white p-3 rounded shadow transform transition duration-300 hover:scale-105 flex gap-4">
+    <img src="./asset/berita1.jpeg" alt="Praktek Puskesmas" class="w-24 h-24 object-cover rounded">
+    <div class="flex flex-col justify-between">
+      <div>
+        <h3 class="font-semibold text-gray-700">Juara 2 LKS jurusan farmasi</h3>
+        <p class="text-sm text-gray-600 line-clamp-2">Siswi kelas XII bernama Mba Safitri, meraih juara 2 tingkat Kabupaten Cilacap..</p>
+      </div>
+      <a href="https://www.instagram.com/p/CpkfmBmvq0_/?igsh=MWdibTMwdXZrNnYxMw==" class="text-blue-600 text-sm hover:underline">Lihat Selengkapnya</a>
+    </div>
+  </div>
+
+  <div class="bg-white p-3 rounded shadow transform transition duration-300 hover:scale-105 flex gap-4">
+    <img src="./asset/berita2.jpeg" alt="Juara Lomba" class="w-24 h-24 object-cover rounded">
+    <div class="flex flex-col justify-between">
+      <div>
+        <h3 class="font-semibold text-gray-700">Juara harapan 2 LKS jurusan rpl</h3>
+        <p class="text-sm text-gray-600 line-clamp-2">Siswa kelas XII bernama Mas Mawahib, meraih juara harapan 2 tingkat Kabupaten Cilacap..</p>
+      </div>
+      <a href="https://www.instagram.com/p/CqFJ_acv1eb/?igsh=bWN4ZGhlNDR5bHI3" class="text-blue-600 text-sm hover:underline">Lihat Selengkapnya</a>
+    </div>
+  </div>
+
+  <div class="bg-white p-3 rounded shadow transform transition duration-300 hover:scale-105 flex gap-4">
+    <img src="./asset/berita3.jpeg" alt="Donor Darah" class="w-24 h-24 object-cover rounded">
+    <div class="flex flex-col justify-between">
+      <div>
+        <h3 class="font-semibold text-gray-700">Juara 3 sepak takraw putri popda</h3>
+        <p class="text-sm text-gray-600 line-clamp-2">Siswi kelas XII bernama Mba Anggi, meraih juara 3 tingkat Kabupaten Cilacap..</p>
+      </div>
+      <a href="https://www.instagram.com/p/CpyyecRPxae/?igsh=ZTUwdnd0Yjh5dG9q" class="text-blue-600 text-sm hover:underline">Lihat Selengkapnya</a>
+    </div>
+  </div>
+
+  <div class="bg-white p-3 rounded shadow transform transition duration-300 hover:scale-105 flex gap-4">
+  <img src="./asset/berita4.jpeg" alt="Proyek RPL" class="w-24 h-24 object-cover rounded">
+  <div class="flex flex-col justify-between">
+    <div>
+      <h3 class="font-semibold text-gray-700">Gelar Juara pencak silat remaja IPSI CUP</h3>
+      <p class="text-sm text-gray-600 line-clamp-2">Siswa - Siswi SMK Farmasi Majenang Memperoleh Gelar juara tingkat Kabupaten Cilacap..</p>
+    </div>
+    <a href="https://www.instagram.com/p/CqZ-f6uvye9/?igsh=dTV3amNpNHg5aGll" class="text-blue-600 text-sm hover:underline">Lihat Selengkapnya</a>
+  </div>
+</div>
+
+<div class="bg-white p-3 rounded shadow transform transition duration-300 hover:scale-105 flex gap-4">
+  <img src="./asset/apl.jpeg" alt="Pengujian Laboratorium" class="w-24 h-24 object-cover rounded">
+  <div class="flex flex-col justify-between">
+    <div>
+      <h3 class="font-semibold text-gray-700">Praktek Analisis Pengujian Laboratorium</h3>
+      <p class="text-sm text-gray-600 line-clamp-2">Praktikum jurusan Analisis Pengujian Laboratorium(APL) di laboratorium menggunakan alat-alat uji standar industri...</p>
+    </div>
+    <a href="https://www.instagram.com/reel/C0fmQvFxlo8/?igsh=MWw5cDl4YWFnbXloNQ==" class="text-blue-600 text-sm hover:underline">Lihat Selengkapnya</a>
+  </div>
+</div>
+
+
+  <div class="bg-white p-3 rounded shadow transform transition duration-300 hover:scale-105 flex gap-4">
+    <img src="./asset/farmasi.jpeg" alt="Farmasi" class="w-24 h-24 object-cover rounded">
+    <div class="flex flex-col justify-between">
+      <div>
+        <h3 class="font-semibold text-gray-700">Praktek Farmasi</h3>
+        <p class="text-sm text-gray-600 line-clamp-2">Praktikum jurusan Farmasi di laboratorium menggunakan alat-alat uji standar industri...</p>
+      </div>
+      <a href="https://www.instagram.com/reel/CxXC3PmRV8n/?igsh=bWhzbW9lbGU3aHo1" class="text-blue-600 text-sm hover:underline">Lihat Selengkapnya</a>
+    </div>
+  </div>
+  <div class="bg-white p-3 rounded shadow transform transition duration-300 hover:scale-105 flex gap-4">
+    <img src="./asset/rpl.jpeg" alt="rpl" class="w-24 h-24 object-cover rounded">
+    <div class="flex flex-col justify-between">
+      <div>
+        <h3 class="font-semibold text-gray-700">Praktek Rekayasa Perangkat Lunak</h3>
+        <p class="text-sm text-gray-600 line-clamp-2">Praktikum jurusan Praktek Rekayasa Perangkat Lunak(RPL) di lab komputer menggunakan alat-alat uji standar industri...</p>
+      </div>
+      <a href="https://www.instagram.com/reel/C0c-v0FRHNh/?igsh=dmI2c2I1Z3Ixandp" class="text-blue-600 text-sm hover:underline">Lihat Selengkapnya</a>
+    </div>
+  </div>
+</div>
+
+<section class="mt-8">
+  <h2 class="text-xl font-bold text-gray-800 mb-4">Berita PPDB</h2>
+  <div class="bg-white rounded-lg p-4 shadow space-y-3 transform transition duration-300 hover:scale-105">
+    <img src="./asset/ppdb.jpg" alt="PPDB 2025" class="w-full h-40 object-cover rounded">
+    <p class="text-gray-700">Pendaftaran Peserta Didik Baru (PPDB) SMK Farmasi Majenang Tahun Ajaran 2025/2026 telah dibuka mulai tanggal 1 April hingga 30 Juni 2025.</p>
+    <ul class="list-disc list-inside text-gray-700">
+      <li>Pendaftaran Online & Offline</li>
+      <li>Syarat: Ijazah SMP/Sederajat, KK, Akta</li>
+      <li>Program Keahlian: Farmasi Klinis dan Komunitas</li>
+    </ul>
+    <a href="pendaftaran.html" class="text-blue-600 hover:underline">Lihat Info Lengkap PPDB</a>
+  </div>
+</section>
+
+          <!-- Lokasi Mini -->
+          <div>
+            <h2 class="text-lg font-semibold text-gray-800 mt-6 mb-2">Lokasi Sekolah</h2>
+            <div class="rounded overflow-hidden shadow">
+              <iframe class="w-full h-80 rounded" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.513972058097!2d108.76683947446368!3d-7.296003392711562!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e65128e9e5dc8a7%3A0xc2acd22b615a63da!2sSMK%20Farmasi%20Majenang%20Cilacap!5e0!3m2!1sid!2sid!4v1743917274340!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <!-- Footer -->
+      <footer class="w-full py-6 border-t mt-12 px-6">
+        <div class="flex flex-wrap justify-center md:justify-between items-center gap-4 text-center md:text-left">
+          <!-- Sosial Media -->
+                    <div class="flex flex-wrap justify-center items-center space-x-4 text-blue-800 text-xl">
+            <a href="https://www.facebook.com/@smkfarmasiofficial" class="flex items-center space-x-2 hover:text-blue-600">
+              <i class="fab fa-facebook-f"></i>
+              <span class="hidden md:inline text-sm">Facebook</span>
+            </a>
+            <a href="https://www.instagram.com/smkfarmasiofficial" class="flex items-center space-x-2 hover:text-pink-600">
+              <i class="fab fa-instagram"></i>
+              <span class="hidden md:inline text-sm">Instagram</span>
+            </a>
+            <a href="https://www.youtube.com/@smkfarmasimajenang7524" class="flex items-center space-x-2 hover:text-red-600">
+              <i class="fab fa-youtube"></i>
+              <span class="hidden md:inline text-sm">YouTube</span>
+            </a>
+            <a href="https://www.tiktok.com/@smkfarmasimajenang" class="flex items-center space-x-2 hover:text-black">
+              <i class="fab fa-tiktok"></i>
+              <span class="hidden md:inline text-sm">TikTok</span>
+            </a>
+          </div>
+
+          <!-- Copyright -->
+          <p class="text-gray-600 text-sm">&copy; 2025 SMK Farmasi Majenang</p>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+<!-- Tombol Back to Top -->
+<button id="backToTop"
+  class="fixed 
+         bottom-[88px] right-6
+         w-12 h-12 
+         md:bottom-[94px] md:right-8 md:w-12 md:h-12
+         bg-blue-800 text-white aspect-square rounded-full shadow-lg hover:bg-blue-700 
+         transition-opacity opacity-0 pointer-events-none z-40 flex items-center justify-center">
+  <i class="fas fa-arrow-up text-base md:text-lg"></i>
+</button>
+
+<!-- Tombol WhatsApp -->
+<a href="https://wa.me/6281225172900?text=Halo%20saya%20mau%20tanya%20info%20ya"
+   target="_blank" 
+   rel="noopener noreferrer"
+   class="fixed 
+          bottom-4 right-4 
+          w-16 h-16 
+          md:bottom-6 md:right-6 md:w-16 md:h-16 
+          bg-green-600 text-white rounded-full shadow-xl hover:bg-green-500 
+          flex items-center justify-center z-50">
+  <i class="fab fa-whatsapp text-4xl"></i>
+</a>
+
+<!-- Card Ajakan WhatsApp -->
+<div id="waCard" 
+     class="fixed 
+            bottom-[88px] right-4 
+            md:bottom-28 md:right-6
+            bg-white shadow-2xl rounded-xl p-4 max-w-xs z-40
+            opacity-0 translate-y-4 pointer-events-none 
+            transition-all duration-500">
+  <div class="flex justify-between items-start">
+    <p class="text-sm text-gray-800">Ada pertanyaan? Klik tombol WhatsApp ya!</p>
+    <button id="closeWaCard" class="text-gray-400 hover:text-red-500 text-lg ml-3 leading-none">&times;</button>
+  </div>
+</div>
+
+
+
+
+  <!-- Script untuk menghilangkan loader saat halaman sudah siap -->
+  <script>
+    window.addEventListener("load", () => {
+      const loader = document.getElementById("loader");
+      setTimeout(() => {
+        loader.classList.add("opacity-0");
+        loader.classList.add("pointer-events-none");
+      }, 500); // Efek fade-out
+    });
+  </script>
+
+  <!-- Script untuk mengelola sidebar -->
+  <script>
+    const sidebar = document.getElementById("sidebar");
+    const menuToggle = document.getElementById("menuToggle");
+    const closeSidebar = document.getElementById("closeSidebar");
+
+    // Menampilkan sidebar saat tombol menu diklik
+    menuToggle?.addEventListener("click", () => {
+      sidebar.classList.remove("-translate-x-full");
+    });
+
+    // Menyembunyikan sidebar saat tombol close diklik
+    closeSidebar?.addEventListener("click", () => {
+      sidebar.classList.add("-translate-x-full");
+    });
+  </script>
+
+  <!-- Script untuk animasi angka -->
+  <script>
+    const observer = new IntersectionObserver((entries, obs) => {
+              entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                  entry.target.classList.add("visible");
+
+                  // Jalankan animasi angka
+                  const counters = entry.target.querySelectorAll(".count");
+                  counters.forEach(counter => {
+                    let start = 0;
+                    const end = +counter.getAttribute("data-count");
+                    const duration = 1500;
+                    const step = Math.ceil(end / (duration / 16));
+
+                    function update() {
+                      start += step;
+                      if (start < end) {
+                        counter.textContent = start;
+                        requestAnimationFrame(update);
+                      } else {
+                        counter.textContent = end.toLocaleString();
+                      }
+                    }
+
+                    update();
+                  });
+
+                  obs.unobserve(entry.target); // hanya jalan sekali
+                }
+              });
+            }, {
+              threshold: 0.3 // hanya saat 30% elemen terlihat
+            });
+
+    document.querySelectorAll('.fade-in').forEach(el => {
+              observer.observe(el);
+            });
+  </script>
+
+  <!-- Script untuk mengirim form -->
+  <script>
+    function handleSubmit(event) {
+                event.preventDefault();
+                const form = event.target;
+                const button = document.getElementById('submitBtn');
+                const originalText = button.innerHTML;
+
+                // Ubah tombol jadi loading
+                button.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Loading...`;
+                button.disabled = true;
+
+                // Simulasi proses kirim (misalnya ke server), ganti dengan async request kalau perlu
+                setTimeout(() => {
+                  form.reset();
+                  button.innerHTML = originalText;
+                  button.disabled = false;
+                  alert("Pesan berhasil dikirim!");
+                }, 2000);
+              }
+  </script>
+
+  <!-- Script untuk mengirim data ke Google Apps Script -->
+  <script>
+              const scriptURL = 'https://script.google.com/macros/s/AKfycbzYeBHRokGvDepcUX8s0vvwoHXQ8i2PPXNA2z3p2WRBqZR2Sezzgs4GVAd7OKTBLdiS/exec';
+              const form = document.forms['smkfamakontakform'];
+
+              form.addEventListener('submit', e => {
+                e.preventDefault();
+                                fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+                  .then(response => console.log('Success!', response))
+                  .catch(error => console.error('Error!', error.message));
+              });
+            </script>
+
+  <!-- Script untuk back to top -->
+  <script>
+    const backToTop = document.getElementById("backToTop");
+    const mainContent = document.querySelector("main");
+
+    // Menampilkan tombol "Back to Top" saat scroll
+    mainContent.addEventListener("scroll", () => {
+      if (mainContent.scrollTop > 300) {
+        backToTop.classList.remove("opacity-0", "pointer-events-none");
+      } else {
+        backToTop.classList.add("opacity-0", "pointer-events-none");
+      }
+    });
+
+    // Mengatur scroll ke atas saat tombol diklik
+    backToTop.addEventListener("click", () => {
+      mainContent.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  </script>
+  
+  <!-- Script -->
+<script>
+  const waCard = document.getElementById('waCard');
+  const closeWaCard = document.getElementById('closeWaCard');
+
+  // Munculkan card dengan animasi saat halaman dimuat
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      waCard.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
+      waCard.classList.add('opacity-100', 'translate-y-0');
+    }, 500);
+
+    // Hilangkan otomatis setelah 5 detik (5000ms)
+    setTimeout(() => {
+      waCard.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+      waCard.classList.remove('opacity-100', 'translate-y-0');
+    }, 5500);
+  });
+
+  // Bisa ditutup manual juga
+  closeWaCard.addEventListener('click', () => {
+    waCard.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+    waCard.classList.remove('opacity-100', 'translate-y-0');
+  });
+</script>
+<script>
+  document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+  });
+</script>
+</body>
+</html>

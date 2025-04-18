@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Formulir Pendaftaran - SMK Farmasi Majenang</title>
+  <link rel="icon" href="./asset/favicon.png" type="image/x-icon">
+  <!-- Mengimpor Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <style>
+    html, body {
+  height: 100%; /* Mengatur tinggi halaman */
+  overflow-y: auto; /* Menampilkan scrollbar vertikal jika diperlukan */
+  margin: 0; /* Menghilangkan margin default */
+  padding: 0; /* Menghilangkan padding default */
+}
+.max-w-2xl {
+  overflow-y: auto;
+}  
+  /* Scrollbar untuk desktop */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f1f5f9; /* abu-abu muda */
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #2563eb; /* biru */
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #1e40af; /* biru lebih gelap saat hover */
+  }
+
+  /* Scrollbar Firefox */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #2563eb #f1f5f9;
+  }
+  input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: transparent;
+    border-bottom: 2px solid #2563eb; /* biru tebal saat fokus */
+    box-shadow: none;
+  }
+
+  input, select, textarea {
+    border: none;
+    border-bottom: 1px solid #93c5fd; /* biru muda */
+    border-radius: 0;
+    padding-left: 0;
+    padding-right: 0;
+    transition: border-color 0.2s;
+  }
+
+  input:hover, select:hover, textarea:hover {
+    border-bottom: 2px solid #2563eb;
+  }
+</style>
+</head>
+<body class="bg-blue-100 scroll-smooth">
+  
+  <div class="max-w-2xl mx-auto px-4 py-8">
+    <div class="bg-white rounded-lg shadow-md border-t-8 border-blue-600 p-6 mb-6">
+      <h1 class="text-2xl font-bold">PPDB SMK FARMASI MAJENANG 2025</h1>
+      <p class="mt-2 mb-4">Masukkan data diri anda untuk mendaftarkan di SMK Farmasi Majenang.</p>
+       <p class="text-sm text-red-500">* Menunjukkan pertanyaan yang wajib diisi</p>
+    </div>
+
+    <form class="space-y-4" name="submit-to-google-sheet" method="POST">
+  <div class="bg-white p-5 rounded-lg shadow-sm">
+    <label class="block font-medium mb-2">Nama Lengkap <span class="text-red-500">*</span></label>
+    <input type="text" name="namalengkap" placeholder="Jawaban Anda" class="w-full border-b border-blue-200 focus:border-blue-600 focus:outline-none text-base py-2">
+  </div>
+
+  <div class="bg-white p-5 rounded-lg shadow-sm">
+    <label class="block font-medium mb-2">NISN <span class="text-red-500">*</span></label>
+    <input type="text" name="nisn" placeholder="Jawaban Anda" class="w-full border-b border-blue-200 focus:border-blue-600 focus:outline-none text-base py-2">
+  </div>
+
+  <div class="bg-white p-5 rounded-lg shadow-sm">
+    <label class="block font-medium mb-2">Tanggal Lahir <span class="text-red-500">*</span></label>
+    <input type="date" name="tanggallahir" class="w-full border-b border-blue-200 focus:border-blue-600 focus:outline-none text-base py-2 bg-white">
+  </div>
+
+  <div class="bg-white p-5 rounded-lg shadow-sm">
+    <label class="block font-medium mb-2">Jenis Kelamin <span class="text-red-500">*</span></label>
+    <select name="jeniskelamin" class="w-full bg-white text-black border-b border-blue-200 focus:border-blue-600 focus:outline-none text-base py-2">
+      <option value="" disabled selected>Pilih jenis kelamin</option>
+      <option value="Laki-Laki">Laki - Laki</option>
+      <option value="Perempuan">Perempuan</option>
+    </select>
+  </div>
+
+  <div class="bg-white p-5 rounded-lg shadow-sm">
+    <label class="block font-medium mb-2">Agama <span class="text-red-500">*</span></label>
+    <input type="text" name="agama" placeholder="Jawaban Anda" class="w-full border-b border-blue-200 focus:border-blue-600 focus:outline-none text-base py-2">
+  </div>
+
+  <div class="bg-white p-5 rounded-lg shadow-sm">
+    <label class="block font-medium mb-2">Alamat Rumah <span class="text-red-500">*</span></label>
+    <input type="text" name="alamatrumah" placeholder="Jawaban Anda" class="w-full border-b border-blue-200 focus:border-blue-600 focus:outline-none text-base py-2">
+  </div>
+
+  <div class="bg-white p-5 rounded-lg shadow-sm">
+    <label class="block font-medium mb-2">Dusun/Jalan <span class="text-red-500">*</span></label>
+    <input type="text" name="dusun/jalan" placeholder="Jawaban Anda" class="w-full border-b border-blue-200 focus:border-blue-600 focus:outline-none text-base py-2">
+  </div>
+
+  <div class="bg-white p-5 rounded-lg shadow-sm">
+    <label class="block font-medium mb-2">RT <span class="text-red-500">*</span></label>
+    <input type="text" name="rt" placeholder="Jawaban Anda" class="w-full border-b border-blue-200 focus:border-blue-600 focus:outline-none text-base py-2">
+  </div>
+
+  <div class="bg-white p-5 rounded-lg shadow-sm">
+    <label class="block font-medium mb-2">RW <span class="text-red-500">*</span></label>
+    <input type="text" name="rw" placeholder="Jawaban Anda" class="w-full border-b border-blue-200 focus:border-blue-600 focus:outline-none text-base py-2">
+  </div>
+
+  <div class="bg-white p-5 rounded-lg shadow-sm">
+    <label class="block font-medium mb-2">Kelurahan <span class="text-red-500">*</span></label>
+    <input type="text" name="kelurahan" placeholder="Jawaban Anda" class="w-full border-b border-blue-200 focus:border-blue-600 focus:outline-none text-base py-2">
+  </div>
+
+  <div class="bg-white p-5 rounded-lg shadow-sm">
+    <label class="block font-medium mb-2">Kecamatan <span class="text-red-500">*</span></label>
+    <input type="text" name="kecamatan" placeholder="Jawaban Anda" class="w-full border-b border-blue-200 focus:border-blue-600 focus:outline-none text-base py-2">
+  </div>
+
+  <div class="bg-white p-5 rounded-lg shadow-sm">
+    <label class="block font-medium mb-2">Kota <span class="text-red-500">*</span></label>
+    <input type="text" name="kota" placeholder="Jawaban Anda" class="w-full border-b border-blue-200 focus:border-blue-600 focus:outline-none text-base py-2">
+  </div>
+
+  <div class="bg-white p-5 rounded-lg shadow-sm">
+    <label class="block font-medium mb-2">No. HP / WA <span class="text-red-500">*</span></label>
+    <input type="tel" name="nohp/wa" placeholder="08xxxxxxxxxx" class="w-full border-b border-blue-200 focus:border-blue-600 focus:outline-none text-base py-2">
+  </div>
+
+  <div class="bg-white p-5 rounded-lg shadow-sm">
+    <label class="block font-medium mb-2">Pilihan Jurusan 1 <span class="text-red-500">*</span></label>
+    <select name="pilihanjurusan1" class="w-full bg-white text-black border-b border-blue-200 focus:border-blue-600 focus:outline-none text-base py-2">
+      <option value="" disabled selected>Pilih salah satu</option>
+      <option value="Farmasi">Farmasi</option>
+      <option value="Analisis Pengujian Laboratorium">Analisis Pengujian Laboratorium</option>
+      <option value="Rekayasa Perangkat Lunak">Rekayasa Perangkat Lunak</option>
+    </select>
+  </div>
+
+  <div class="bg-white p-5 rounded-lg shadow-sm">
+    <label class="block font-medium mb-2">Pilihan Jurusan 2 <span class="text-red-500">*</span></label>
+    <select name="pilihanjurusan2" class="w-full bg-white text-black border-b border-blue-200 focus:border-blue-600 focus:outline-none text-base py-2">
+      <option value="" disabled selected>Pilih salah satu</option>
+      <option value="Farmasi">Farmasi</option>
+      <option value="Analisis Pengujian Laboratorium">Analisis Pengujian Laboratorium</option>
+      <option value="Rekayasa Perangkat Lunak">Rekayasa Perangkat Lunak</option>
+    </select>
+  </div>
+
+  <div class="bg-white p-5 rounded-lg shadow-sm">
+    <label class="block font-medium mb-2">Nama Orang Tua <span class="text-red-500">*</span></label>
+    <input type="text" name="namaorangtua" placeholder="Nama lengkap ayah/ibu" class="w-full border-b border-blue-200 focus:border-blue-600 focus:outline-none text-base py-2">
+  </div>
+
+  <div class="bg-white p-5 rounded-lg shadow-sm">
+    <label class="block font-medium mb-2">Pekerjaan Orang Tua <span class="text-red-500">*</span></label>
+    <input type="text" name="pekerjaanorangtua" placeholder="Pekerjaan Ayah/Ibu" class="w-full border-b border-blue-200 focus:border-blue-600 focus:outline-none text-base py-2">
+  </div>
+
+  <div class="bg-white p-5 rounded-lg shadow-sm">
+    <label class="block font-medium mb-2">Alamat Orang Tua <span class="text-red-500">*</span></label>
+    <input type="text" name="alamatorangtua" placeholder="Alamat rumah orang tua" class="w-full border-b border-blue-200 focus:border-blue-600 focus:outline-none text-base py-2">
+  </div>
+
+  <div class="bg-white p-5 rounded-lg shadow-sm">
+    <label class="block font-medium mb-2">No HP Orang Tua <span class="text-red-500">*</span></label>
+    <input type="tel" name="nohporangtua" placeholder="08xxxxxxxxxx" class="w-full border-b border-blue-200 focus:border-blue-600 focus:outline-none text-base py-2">
+  </div>
+
+  <div class="bg-white p-5 rounded-lg shadow-sm">
+    <label class="block font-medium mb-2">Nama Asal Sekolah <span class="text-red-500">*</span></label>
+    <input type="text" name="namaasalsekolah" placeholder="SMP / MTs asal" class="w-full border-b border-blue-200 focus:border-blue-600 focus:outline-none text-base py-2">
+  </div>
+
+  <div class="bg-white p-5 rounded-lg shadow-sm">
+    <label class="block font-medium mb-2">Alamat Asal Sekolah <span class="text-red-500">*</span></label>
+    <input type="text" name="alamatasalsekolah" placeholder="Alamat lengkap sekolah" class="w-full border-b border-blue-200 focus:border-blue-600 focus:outline-none text-base py-2">
+  </div>
+
+  <div class="flex justify-between items-center mt-4">
+    <button id="submitBtn" type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition flex items-center justify-center gap-2">
+      <svg id="spinner" class="hidden w-5 h-5 text-white animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4l3.5-3.5L12 0v4a8 8 0 000 16v-4l-3.5 3.5L12 24v-4a8 8 0 01-8-8z"></path>
+      </svg>
+      <span id="submitText">Kirim</span>
+    </button>
+    <a href="#" onclick="document.querySelector('form').reset()" class="text-blue-600 hover:underline text-sm">Kosongkan Formulir</a>
+  </div>
+</form>
+  </div>
+  
+  <script>
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbwNobO6GiG7l_YYUl995cYT2iyoNUUeOedjxr06r5druiXqrUNQuV4YJ-vub9epQo2aEw/exec';
+  const form = document.forms['submit-to-google-sheet'];
+  const submitBtn = document.getElementById('submitBtn');
+  const spinner = document.getElementById('spinner');
+  const submitText = document.getElementById('submitText');
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+
+    let inputs = form.querySelectorAll('input, select, textarea');
+    for (let input of inputs) {
+      if (input.hasAttribute('name') && input.closest('.bg-white') && input.value.trim() === '') {
+        input.focus();
+        input.classList.add('border-red-500');
+        input.classList.add('ring');
+        input.classList.add('ring-red-300');
+        return;
+      } else {
+        input.classList.remove('border-red-500', 'ring', 'ring-red-300');
+      }
+    }
+
+    submitBtn.disabled = true;
+    spinner.classList.remove('hidden');
+    submitText.textContent = "Mengirim...";
+
+    fetch(scriptURL, { method: 'POST', body: new FormData(form) });
+
+    form.reset();
+    setTimeout(() => {
+      window.location.href = 'terkirim.html';
+    }, 500);
+  });
+</script>
+  
+</body>
+</html>
